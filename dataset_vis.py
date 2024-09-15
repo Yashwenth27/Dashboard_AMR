@@ -264,7 +264,7 @@ with b:
         speciality_data.rename(columns={'Speciality': 'Speciality', 'Sum': 'Sum'}, inplace=True)
         fig = px.bar(speciality_data, x='Speciality', y='Sum', text='Sum', 
                     hover_data={'Speciality': True, 'Sum': True})
-        st.subheader('Speciality Distribution - Vertical Bar Plot')
+        st.subheader('Speciality Distribution')
         fig.update_traces(texttemplate='%{text:.2s}', textposition='outside')
         st.plotly_chart(fig, use_container_width=True)
 
