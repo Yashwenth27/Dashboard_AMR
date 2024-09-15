@@ -278,7 +278,7 @@ with c:
         data = pd.read_excel('organism.xlsx')
         
         # Create the donut chart
-        fig = px.pie(data, names='Isolates', values='% of Isolates', 
+        fig = px.pie(data, names='Organism', values='Percentage', 
                      title='Distribution of Isolates',
                      hole=0.4,  # Creating the donut chart
                      color_discrete_sequence=px.colors.qualitative.Set1)  # Set1 has good contrast
