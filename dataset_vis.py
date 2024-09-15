@@ -332,6 +332,7 @@ with col1:
 
 with col2:
     # Gender Plot
+    import plotly.graph_objects as go
     with st.container():
         gender_data = pd.read_excel('gendercount.xlsx')
 
