@@ -253,11 +253,10 @@ with a:
                                 showland=True,
                                 landcolor="white",
                                 showocean=True,
-                                oceancolor="lightblue",
-                                projection_scale=3  
+                                oceancolor="lightblue"
                             ),
                              width=1200,  # Set width of the plot
-    height=800)
+                            height=800)
         st.plotly_chart(fig)
 with b:
     with st.container():
