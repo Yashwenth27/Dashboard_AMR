@@ -334,30 +334,40 @@ with col2:
     # Gender Plot
     with st.container():
         gender_data = pd.read_excel('gendercount.xlsx')
-        sns.set_style("whitegrid")
-        plt.figure(figsize=(4,4))  # Adjust size for compactness
-        plt.pie(gender_data['Sum'], labels=gender_data['Gender'], autopct='%1.1f%%', colors=['#ff9999','#66b3ff'], startangle=90, wedgeprops={'edgecolor': 'black'})
+
+        fig = go.Figure(data=[go.Pie(
+            labels=gender_data['Gender'],
+            values=gender_data['Sum'],
+            hole=0,  # Solid pie chart
+            marker=dict(colors=['#ff9999', '#66b3ff', '#ffcc99'], line=dict(color='black', width=1)),
+            hoverinfo='label+percent',
+            textinfo='percent',
+            textfont_size=14
+        )])
+        
+        fig.update_traces(textposition='inside', showlegend=True)
+        
         st.subheader('Gender Distribution')
-        plt.axis('equal')  # Equal aspect ratio ensures the pie chart is circular.
-        st.pyplot(plt)
+        st.plotly_chart(fig)
 
 with col3:
     # Source Plot
     with st.container():
         source_data = pd.read_excel('sourcecount.xlsx', header=None)
-        source_data.columns = ['Source Type', 'Sum', 'Total', 'Percentage']
-        source_data = source_data[['Source Type', 'Sum']]
+        source_data.rename(columns={'Sum': 'No of Isolates'}, inplace=True)
+        source_data.columns = ['Source Type', 'No of Isolates', 'Total', 'Percentage']
+        source_data = source_data[['Source Type', 'No of Isolates']]
         source_data = source_data[(source_data['Source Type'] != 'Others') & (source_data['Source Type'] != 'Not Given')]
 
         # Convert 'Sum' to numeric and drop rows with non-numeric values
-        source_data['Sum'] = pd.to_numeric(source_data['Sum'], errors='coerce')
-        source_data = source_data.dropna(subset=['Sum'])
+        source_data['No of Isolates'] = pd.to_numeric(source_data['No of Isolates'], errors='coerce')
+        source_data = source_data.dropna(subset=['No of Isolates'])
 
         # Sort the DataFrame by 'Sum' in descending order
-        source_data = source_data.sort_values(by='Sum', ascending=False)
+        source_data = source_data.sort_values(by='No of Isolates', ascending=False)
         
-        fig = px.bar(source_data, y='Source Type', x='Sum', text='Sum', 
-                    orientation='h', hover_data={'Source Type': True, 'Sum': True})
+        fig = px.bar(source_data, y='Source Type', x='No of Isolates', text='No of Isolates', 
+                    orientation='h', hover_data={'Source Type': True, 'No of Isolates': True})
         st.subheader("Source Type Distribution")
         fig.update_traces(texttemplate='%{text:.2s}', textposition='outside')
         st.plotly_chart(fig, use_container_width=True)
