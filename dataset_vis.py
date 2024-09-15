@@ -199,7 +199,7 @@ lat_lon_data = {
 }
 
 # Main content container
-a,b = st.columns(2)
+a,b,c = st.columns(3)
 with a:
     with st.container():
         # Title
@@ -268,7 +268,31 @@ with b:
         fig.update_traces(texttemplate='%{text:.2s}', textposition='outside')
         st.plotly_chart(fig, use_container_width=True)
 
+with c:
+    with st.container():
+        import streamlit as st
+        import pandas as pd
+        import plotly.express as px
+        
+        # Load the data
+        data = pd.read_excel('organism.xlsx')
+        
+        # Create the donut chart
+        fig = px.pie(data, names='Isolates', values='% of Isolates', 
+                     title='Distribution of Isolates',
+                     hole=0.4,  # Creating the donut chart
+                     color_discrete_sequence=px.colors.qualitative.Set1)  # Set1 has good contrast
+        
+        # Update the hover template to show the percentage clearly
+        fig.update_traces(hovertemplate='%{label}<br>% of Isolates: %{value:.2f}%')
+        
+        # Set the layout for legend and visual appeal
+        fig.update_layout(legend_title_text='Isolates',
+                          showlegend=True,
+                          margin=dict(t=40, b=0, l=0, r=0))
 
+# Show the figure in Streamlit
+st.plotly_chart(fig)
 
 # Compact Layout with 3 Columns
 col1, col2, col3 = st.columns([1, 1, 1])
