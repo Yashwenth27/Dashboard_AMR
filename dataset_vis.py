@@ -261,9 +261,9 @@ with b:
     with st.container():
         # Speciality Plot
         speciality_data = pd.read_excel('specialitycount.xlsx')
-        speciality_data.rename(columns={'Speciality': 'Speciality', 'Sum': 'Sum'}, inplace=True)
-        fig = px.bar(speciality_data, x='Speciality', y='Sum', text='Sum', 
-                    hover_data={'Speciality': True, 'Sum': True})
+        speciality_data.rename(columns={'Speciality': 'Speciality', 'Sum': 'No of Isolates'}, inplace=True)
+        fig = px.bar(speciality_data, x='Speciality', y='No of Isolates', text='No of Isolates', 
+                    hover_data={'Speciality': True, 'No of Isolates': True})
         st.subheader('Speciality Distribution')
         fig.update_traces(texttemplate='%{text:.2s}', textposition='outside')
         st.plotly_chart(fig, use_container_width=True)
