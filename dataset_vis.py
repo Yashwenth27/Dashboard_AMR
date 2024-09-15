@@ -255,7 +255,9 @@ with a:
                                 showocean=True,
                                 oceancolor="lightblue",
                                 projection_scale=3  
-                            ))
+                            ),
+                             width=1200,  # Set width of the plot
+    height=800)
         st.plotly_chart(fig)
 with b:
     with st.container():
@@ -278,8 +280,7 @@ with c:
         data = pd.read_excel('organism.xlsx')
         
         # Create the donut chart
-        fig = px.pie(data, names='Organism ', values='Percentage', 
-                     title='Distribution of Isolates',
+        fig = px.pie(data, names='Organism ', values='Percentage'
                      hole=0.4,  # Creating the donut chart
                      color_discrete_sequence=px.colors.qualitative.Set1)  # Set1 has good contrast
         
@@ -292,6 +293,7 @@ with c:
                           margin=dict(t=40, b=0, l=0, r=0))
 
 # Show the figure in Streamlit
+        st.subheader("Organism Distribution")
         st.plotly_chart(fig)
 
 # Compact Layout with 3 Columns
@@ -301,9 +303,10 @@ with col1:
     # Age Plot
     with st.container():
         age_data = pd.read_excel('agecount.xlsx')
+        age_data.rename(columns={'Sum': 'No of Isolates'}, inplace=True)
         age_data = age_data[age_data['Age Group'] != 'Unknown']
-        fig = px.bar(age_data, y='Age Group', x='Sum', text='Sum', 
-                    orientation='h', hover_data={'Age Group': True, 'Sum': True})
+        fig = px.bar(age_data, y='Age Group', x='No of Isolates', text='No of Isolates', 
+                    orientation='h', hover_data={'Age Group': True, 'No of Isolates': True})
         fig.update_traces(texttemplate='%{text:.2s}', textposition='outside')
         st.subheader('Age Group Distribution')
         st.plotly_chart(fig, use_container_width=True)
