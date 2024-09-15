@@ -204,8 +204,10 @@ with a:
     with st.container():
         # Title
         st.subheader("Geographical Distribution of Isolates")
-        selected_country = "All"
+        selected_country="All"
+        # Plot
         discrete_colors = ['#FF5733', '#33FF57', '#3357FF', '#F9C433', '#FF33A1']
+
 
         if selected_country == 'All':
             fig = px.choropleth(country_data, 
@@ -225,23 +227,13 @@ with a:
                                 landcolor="white",
                                 showocean=True,
                                 oceancolor="lightblue"
-                            ),
-                            width=1200,  # Set width of the plot
-                            height=800,  # Set height of the plot
-                            legend=dict(
-                                orientation="h",  # Horizontal legend
-                                yanchor="bottom",
-                                y=-0.2,  # Position below the plot
-                                xanchor="center",
-                                x=0.5,  # Center the legend
-                                title_text='Legend'
-                            )
-                           )
+                            ))
         else:
             if selected_country in lat_lon_data:
                 center_lat, center_lon = lat_lon_data[selected_country]
             else:
                 center_lat, center_lon = 0, 0  
+            
 
             fig = px.choropleth(country_data, 
                                 locations="Country", 
@@ -263,19 +255,9 @@ with a:
                                 showocean=True,
                                 oceancolor="lightblue"
                             ),
-                            width=1200,  # Set width of the plot
-                            height=800,  # Set height of the plot
-                            legend=dict(
-                                orientation="h",  # Horizontal legend
-                                yanchor="bottom",
-                                y=-0.2,  # Position below the plot
-                                xanchor="center",
-                                x=0.5,  # Center the legend
-                                title_text='Legend'
-                            )
-                           )
-        # Display the Plotly chart in Streamlit
-        st.plotly_chart(fig, use_container_width=True)
+                             width=1200,  # Set width of the plot
+                            height=800)
+        st.plotly_chart(fig)
 with b:
     with st.container():
         # Speciality Plot
