@@ -292,7 +292,7 @@ with c:
                           margin=dict(t=40, b=0, l=0, r=0))
 
 # Show the figure in Streamlit
-st.plotly_chart(fig)
+        st.plotly_chart(fig)
 
 # Compact Layout with 3 Columns
 col1, col2, col3 = st.columns([1, 1, 1])
